@@ -1,0 +1,93 @@
+---
+title: "GARMA Simulation"
+author: "Matthieu-Georges Papahagi"
+date: "06/02/2022"
+output:
+  pdf_document: default
+  html_document:
+    codefont: ComputerModern
+    mainfont: ComputerModern
+    monofont: ComputerModern
+    sansfont: ComputerModern
+    theme: united
+---
+
+```{r setup, include=FALSE}
+# set default to displaying neither code nor output
+knitr::opts_chunk$set(echo = TRUE, include = TRUE, fig.align="center")#,fig.width=8, fig.height=4)
+# theme_set(theme_minimal())
+```
+
+```{r, include=FALSE, echo = FALSE}
+# packages
+
+# aspect & extended functionality libraries
+library(knitr)
+library(tidyverse)
+library(lemon)
+library(png)
+library(readr) # here used for parsing numbers out of strings
+#library(docstring)
+
+# plotting libraries
+library(grid)
+library(gridExtra)
+library(ggplot2)
+library(gghighlight)
+library(plotly)
+library(hrbrthemes)
+# 3D plotting libraries
+#library(rgl)
+#library(plot3D)
+#library(plot3Drgl)
+#library(zoom)
+
+# Statistics and TS libraries
+library(MASS)
+library(lme4)
+library(TSA)
+library(aTSA)
+library(forecast)
+library(goftest)
+library(garma)
+library(fracdiff)
+library(longmemo) # crucial for GARMA
+library(invgamma)
+library(yardstick)
+library(tswge) # contains function to generate GARMA realization
+library(polynom) # used to reconstruct AR and MA polynomials from roots
+
+# Numerical analysis libraries
+library(pracma)
+require(numbers)
+library(numDeriv)
+library(inflection)
+library(mosaicCalc)
+library(nloptr)
+library(MonteCarlo)
+library(rjmcmc)
+library(mcmc)
+library(BayesianTools) # crucial for SMC
+
+# latex libraries
+#library(latex2exp)
+#library(tinytex)
+
+knit_print.data.frame <- lemon_print
+```
+
+------------------------------------------------------------------------------------------
+
+Simulating an ARFIMA model
+
+```{r}
+#library(nsarfima)
+## Generate ARFIMA(1,d,0) series with Gaussian innovations
+x <- arfima.sim(700, d=0.4) 
+plot(x,type="l")
+acf(x,lag.max=300)
+```
+
+```{r}
+#write.csv(x, file="ARFIMA_04_700.csv")
+```
